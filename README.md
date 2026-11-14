@@ -223,6 +223,18 @@ From now on, every `git push` to `main` redeploys automatically.
 
 ---
 
+## 5b. Deploy to Vercel (current setup)
+
+This copy is live at **https://chaupal-tawny.vercel.app** and deploys automatically from GitHub.
+
+- **Every push to `main`** builds and publishes to production. Pushes to other branches get their own preview URL.
+- **Environment variables** live in Vercel → Project → Settings → Environment Variables: `DATABASE_URL` (Neon), `SESSION_SECRET`, `NODE_ENV=production`, and optionally `GOOGLE_CLIENT_ID`.
+- **`vercel.json`** sets the Express preset and rewrites `/` and `/p/:id` to the HTML pages in `public/` (Vercel serves `public/` from its CDN; `server.js` handles `/api/*`).
+- **Google sign-in:** add `https://chaupal-tawny.vercel.app` to Authorized JavaScript origins.
+- **Local dev with Neon:** `neon deploy` writes `DATABASE_URL` to `.env.local`, which the app reads alongside `.env`.
+
+---
+
 ## 6. Security: what's built in, and where
 
 | Protection | What it stops | Where |
